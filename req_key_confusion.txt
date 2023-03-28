@@ -1,8 +1,0 @@
-https://ironhackers.es/tutoriales/atacando-json-web-token-jwt/
-
-no anda
-sino pagando
-
-https://blog.pentesteracademy.com/hacking-jwt-tokens-verification-key-mismanagement-iv-582601f9d8ac 
-https://attackdefense.com/challengedetailsnoauth?cid=1449 pero re caro 69 usd x mes
-

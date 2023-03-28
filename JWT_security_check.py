@@ -125,7 +125,7 @@ def test_lack_signature(method, protocol, host, path, headers_dict, data, jwt_to
 	print('[*] The application does not seem to be vulnerable to JWT Lack of Signature Vulnerability.')
 	return
 
-def test_key_confusion(method, protocol, host, path, headers_dict, data, jwt_token, key_file):
+def test_alg_confusion(method, protocol, host, path, headers_dict, data, jwt_token, key_file):
 	# 
 	if header_dict['alg'] == 'RS256':
 		url = protocol+ "://" + host + path
@@ -139,7 +139,7 @@ def test_key_confusion(method, protocol, host, path, headers_dict, data, jwt_tok
 		payload = jwt.decode(jwt_token, verify=False)
 		
 		# Get the secret key from the supplied file
-		with open(key_file, 'r') as f:
+		with open(key_file, 'k') as f:
 			secret_key = f.read()
 		
 		# Build new JWT
@@ -167,7 +167,7 @@ def main(argv):
 	try:
 		opts, args = getopt.getopt(argv,"r:p:k:",["rfile=", "protocol=", "key="])
 	except getopt.GetoptError:
-		print ('python3 JWT_security_check.py -r <request file> [-p <https|http>] [-k <public key file>]'')
+		print ('python3 JWT_security_check.py -r <request file> [-p <https|http>] [-k <public key file>]')
 		sys.exit(2)
 	for opt, arg in opts:
 		if opt == '-h':
@@ -193,8 +193,8 @@ def main(argv):
 		key, value = header.split(': ')
 		headers_dict[key] = value
 	test_none(method, protocol, host, path, headers_dict, data, jwt_token)
-	testLackSignature(method, protocol, host, path, headers_dict, data, jwt_token)
-	#testKeyConfusion(method, protocol, host, path, headers_dict, data, jwt_token, publickeyfile)
+	test_lack_signature(method, protocol, host, path, headers_dict, data, jwt_token)
+	#test_key_confusion(method, protocol, host, path, headers_dict, data, jwt_token, publickeyfile)
 	
 
 
